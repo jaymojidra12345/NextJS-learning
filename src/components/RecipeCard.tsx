@@ -1,5 +1,6 @@
 import { Recipe } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 interface RecipeCardProps {
     recipe: Recipe;
@@ -7,17 +8,16 @@ interface RecipeCardProps {
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
     return (
-        <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <div className="relative h-48 w-full">
+        <Link href={`/recipe/${recipe.id}`} className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 block focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <div className="relative h-48 w-full overflow-hidden">
                 <Image
                     src={recipe.image}
                     alt={recipe.name}
                     fill
-                    loading="lazy"
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1">
+                <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-gray-700 flex items-center gap-1 shadow-sm">
                     <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
@@ -27,7 +27,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
 
             <div className="p-5">
                 <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 line-clamp-1">{recipe.name}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">{recipe.name}</h3>
                 </div>
 
                 <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
@@ -63,6 +63,6 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
                     <span className="text-sm font-medium text-gray-500">{recipe.cuisine}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
