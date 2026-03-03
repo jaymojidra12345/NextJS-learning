@@ -16,6 +16,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       // Store token
       localStorage.setItem("accessToken", data.accessToken);
+      document.cookie = `accessToken=${data.accessToken}; path=/; max-age=86400; SameSite=Lax`;
       // Optional: Store user info
       localStorage.setItem("user", JSON.stringify(data));
       
@@ -32,6 +33,7 @@ export const useLogin = () => {
 
 export const logout = () => {
   localStorage.removeItem("accessToken");
+  document.cookie = "accessToken=; path=/; max-age=0; SameSite=Lax";
   localStorage.removeItem("user");
   window.location.href = "/login";
 };

@@ -1,48 +1,13 @@
 "use client";
 
 import { useRecipes } from "@/features/recipes/api";
-import { useLogin, logout } from "@/features/auth/api";
 import RecipeCard from "@/components/RecipeCard";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { data, isLoading, error } = useRecipes();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    // Check authentication on mount
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      router.push("/login");
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
-
-  // Don't render anything while checking auth to prevent UI flash
-  if (isAuthenticated === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Delicious Recipes</h1>
-          <button
-            onClick={() => logout()}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Logout
-          </button>
-        </div>
-      </header>
+    <div className="bg-gray-50 flex-grow">
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {isLoading ? (
